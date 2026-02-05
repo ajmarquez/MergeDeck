@@ -3,7 +3,7 @@
 //  MergeDeck
 //
 
-import SwiftUI
+import Foundation
 
 enum CIStatus: String, Codable {
     case pending
@@ -27,22 +27,7 @@ enum CIStatus: String, Codable {
         }
     }
 
-    var color: Color {
-        switch self {
-        case .pending:
-            return .yellow
-        case .success:
-            return .green
-        case .failure:
-            return .red
-        case .neutral:
-            return .gray
-        case .unknown:
-            return .secondary
-        }
-    }
-
-    init(statusCheckState: String?) {
+    nonisolated init(statusCheckState: String?) {
         switch statusCheckState?.uppercased() {
         case "SUCCESS":
             self = .success

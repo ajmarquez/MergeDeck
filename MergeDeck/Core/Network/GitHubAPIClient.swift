@@ -14,7 +14,7 @@ actor GitHubAPIClient {
 
     init(
         baseURL: URL = GitHubAPIClient.defaultBaseURL,
-        tokenStore: TokenStore = KeychainManager.shared,
+        tokenStore: TokenStore,
         session: URLSession = .shared
     ) {
         self.baseURL = baseURL

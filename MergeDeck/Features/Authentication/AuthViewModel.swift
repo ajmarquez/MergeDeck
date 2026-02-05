@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import Combine
 
 @MainActor
 final class AuthViewModel: ObservableObject {
@@ -14,8 +15,12 @@ final class AuthViewModel: ObservableObject {
 
     private let tokenStore: TokenStore
 
-    init(tokenStore: TokenStore = KeychainManager.shared) {
+    init(tokenStore: TokenStore) {
         self.tokenStore = tokenStore
+    }
+
+    convenience init() {
+        self.init(tokenStore: KeychainManager())
     }
 
     func saveToken(baseURL: URL) async -> Bool {

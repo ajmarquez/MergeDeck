@@ -7,12 +7,10 @@ import Foundation
 import Security
 
 final class KeychainManager: TokenStore {
-    static let shared = KeychainManager(service: "com.mergedeck.token")
-
     private let service: String
     private let account = "githubToken"
 
-    init(service: String) {
+    nonisolated init(service: String = "com.mergedeck.token") {
         self.service = service
     }
 

@@ -24,7 +24,7 @@ struct ContentView: View {
     }
 
     private func refreshAuthenticationState() async {
-        let token = await KeychainManager.shared.getToken()
+        let token = await KeychainManager().getToken()
         await MainActor.run {
             hasToken = token != nil
         }

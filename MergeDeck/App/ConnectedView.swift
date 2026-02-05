@@ -44,7 +44,7 @@ struct ConnectedView: View {
 
             Button("Sign Out") {
                 Task {
-                    try? await KeychainManager.shared.deleteToken()
+                    try? await KeychainManager().deleteToken()
                     onSignOut()
                 }
             }
