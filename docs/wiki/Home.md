@@ -12,11 +12,10 @@ Phase 1 (foundation) is implemented:
 - Keychain-backed token storage
 - GraphQL API client with async/await
 - Core CI/PR domain models
-- Basic connected shell UI
+- Phase 2 app shell with PR list, detail, refresh, and settings
 - macOS app sandbox configured with outgoing network entitlement
 
 Not implemented yet:
-- Full PR dashboard
 - Widgets
 - OAuth flow
 - Background refresh/notifications
