@@ -29,6 +29,9 @@ make test-ui-ios
 - Jobs:
   - macOS unit tests (`MergeDeckTests`)
   - iOS simulator unit tests (`MergeDeckTests`)
+- Implementation detail:
+  - CI executes `make` targets (`build-*` and `test-*`) to keep local and CI commands aligned.
+  - In CI mode (`CI=true`), `Makefile` disables code signing for test/build commands.
 
 ## Notes About Test Execution
 - Unit and UI tests are separated in Make targets.

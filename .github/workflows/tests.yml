@@ -20,17 +20,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          xcodebuild \
-            -project MergeDeck.xcodeproj \
-            -scheme MergeDeck \
-            -configuration Debug \
-            -destination 'platform=macOS' \
-            -only-testing:MergeDeckTests \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
-            test
+          make clean
+          make build-macos CI=true
+          make test-macos CI=true
 
   ios-unit-tests:
     name: iOS Unit Tests
@@ -58,14 +50,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          xcodebuild \
-            -project MergeDeck.xcodeproj \
-            -scheme MergeDeck \
-            -configuration Debug \
-            -destination "id=${{ steps.simulator.outputs.id }}" \
-            -only-testing:MergeDeckTests \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
-            test
+          make clean
+          make build-ios CI=true IOS_DESTINATION="id=${{ steps.simulator.outputs.id }}"
+          make test-ios CI=true IOS_DESTINATION="id=${{ steps.simulator.outputs.id }}"
