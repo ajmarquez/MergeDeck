@@ -8,11 +8,6 @@ MAC_DESTINATION := platform=macOS
 DERIVED_DATA := .build/DerivedData
 UNIT_TEST_TARGET := MergeDeckTests
 UI_TEST_TARGET := MergeDeckUITests
-XCODE_SIGN_ARGS :=
-
-ifeq ($(CI),true)
-XCODE_SIGN_ARGS := CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= DEVELOPMENT_TEAM=
-endif
 
 XCODEBUILD := xcodebuild -project $(PROJECT) -scheme $(SCHEME) -configuration $(CONFIGURATION) -derivedDataPath $(DERIVED_DATA)
 XCBEAUTIFY := $(shell command -v xcbeautify 2>/dev/null)
@@ -44,19 +39,19 @@ build: build-macos
 build-macos:
 	@set -o pipefail; \
 	if [[ -n "$(XCBEAUTIFY)" ]]; then \
-		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' $(XCODE_SIGN_ARGS) build | $(XCBEAUTIFY); \
+		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' build | $(XCBEAUTIFY); \
 	else \
 		echo "xcbeautify not found; running raw xcodebuild output."; \
-		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' $(XCODE_SIGN_ARGS) build; \
+		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' build; \
 	fi
 
 build-ios:
 	@set -o pipefail; \
 	if [[ -n "$(XCBEAUTIFY)" ]]; then \
-		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' $(XCODE_SIGN_ARGS) build | $(XCBEAUTIFY); \
+		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' build | $(XCBEAUTIFY); \
 	else \
 		echo "xcbeautify not found; running raw xcodebuild output."; \
-		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' $(XCODE_SIGN_ARGS) build; \
+		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' build; \
 	fi
 
 test: test-macos
@@ -64,37 +59,37 @@ test: test-macos
 test-macos:
 	@set -o pipefail; \
 	if [[ -n "$(XCBEAUTIFY)" ]]; then \
-		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) $(XCODE_SIGN_ARGS) test | $(XCBEAUTIFY); \
+		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) test | $(XCBEAUTIFY); \
 	else \
 		echo "xcbeautify not found; running raw xcodebuild output."; \
-		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) $(XCODE_SIGN_ARGS) test; \
+		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) test; \
 	fi
 
 test-ios:
 	@set -o pipefail; \
 	if [[ -n "$(XCBEAUTIFY)" ]]; then \
-		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) $(XCODE_SIGN_ARGS) test | $(XCBEAUTIFY); \
+		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) test | $(XCBEAUTIFY); \
 	else \
 		echo "xcbeautify not found; running raw xcodebuild output."; \
-		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) $(XCODE_SIGN_ARGS) test; \
+		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UNIT_TEST_TARGET) test; \
 	fi
 
 test-ui-macos:
 	@set -o pipefail; \
 	if [[ -n "$(XCBEAUTIFY)" ]]; then \
-		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UI_TEST_TARGET) $(XCODE_SIGN_ARGS) test | $(XCBEAUTIFY); \
+		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UI_TEST_TARGET) test | $(XCBEAUTIFY); \
 	else \
 		echo "xcbeautify not found; running raw xcodebuild output."; \
-		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UI_TEST_TARGET) $(XCODE_SIGN_ARGS) test; \
+		$(XCODEBUILD) -destination '$(MAC_DESTINATION)' -only-testing:$(UI_TEST_TARGET) test; \
 	fi
 
 test-ui-ios:
 	@set -o pipefail; \
 	if [[ -n "$(XCBEAUTIFY)" ]]; then \
-		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UI_TEST_TARGET) $(XCODE_SIGN_ARGS) test | $(XCBEAUTIFY); \
+		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UI_TEST_TARGET) test | $(XCBEAUTIFY); \
 	else \
 		echo "xcbeautify not found; running raw xcodebuild output."; \
-		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UI_TEST_TARGET) $(XCODE_SIGN_ARGS) test; \
+		$(XCODEBUILD) -destination '$(IOS_DESTINATION)' -only-testing:$(UI_TEST_TARGET) test; \
 	fi
 
 clean:
