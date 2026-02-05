@@ -13,7 +13,7 @@ struct ContentView: View {
     var body: some View {
         Group {
             if hasToken {
-                ConnectedView(onSignOut: handleSignOut)
+                PRListView(onSignOut: handleSignOut)
             } else {
                 AuthView(onAuthenticated: handleAuthenticated)
             }

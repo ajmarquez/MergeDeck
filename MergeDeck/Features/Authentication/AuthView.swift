@@ -74,23 +74,10 @@ struct AuthView: View {
         if !useEnterprise {
             enterpriseBaseURL = GitHubAPIClient.defaultBaseURL.absoluteString
         }
-
-        let rawURL = useEnterprise ? enterpriseBaseURL : GitHubAPIClient.defaultBaseURL.absoluteString
-        let trimmed = rawURL.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return nil }
-
-        let normalized = appendGraphQLIfNeeded(to: trimmed)
-        return URL(string: normalized)
-    }
-
-    private func appendGraphQLIfNeeded(to urlString: String) -> String {
-        let lowered = urlString.lowercased()
-        if lowered.hasSuffix("/graphql") {
-            return urlString
-        }
-
-        let trimmed = urlString.hasSuffix("/") ? String(urlString.dropLast()) : urlString
-        return "\(trimmed)/graphql"
+        return GitHubEndpoint.resolve(
+            useEnterprise: useEnterprise,
+            configuredBaseURL: enterpriseBaseURL
+        )
     }
 }
 
