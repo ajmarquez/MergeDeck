@@ -3,7 +3,7 @@ SHELL := /bin/zsh
 PROJECT := MergeDeck.xcodeproj
 SCHEME := MergeDeck
 CONFIGURATION := Debug
-IOS_DESTINATION := platform=iOS Simulator,name=iPhone 16
+IOS_DESTINATION := platform=iOS Simulator,name=iPhone 17
 MAC_DESTINATION := platform=macOS
 DERIVED_DATA := .build/DerivedData
 UNIT_TEST_TARGET := MergeDeckTests
@@ -26,6 +26,7 @@ help:
 	@echo "  make test-ui-ios    Run UI tests on iOS Simulator"
 	@echo "  make clean        Clean build artifacts"
 	@echo "  make check-xcbeautify  Print xcbeautify status"
+	@echo "  iOS simulator destination: $(IOS_DESTINATION)"
 
 check-xcbeautify:
 	@if [[ -n "$(XCBEAUTIFY)" ]]; then \
