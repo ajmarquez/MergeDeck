@@ -1,10 +1,10 @@
 # Next Steps
 
 ## Phase 2 (Recommended Immediate Work)
-1. Implement PR list screen with status rows.
-2. Add manual refresh and automatic refresh trigger.
-3. Add PR detail screen with full check run list.
-4. Add settings for refresh interval and enterprise endpoint.
+1. Complete UX polish for PR list, detail, and settings flows.
+2. Improve failure/empty states with retry actions and clearer diagnostics.
+3. Add filtering/sorting controls (for example, failing first or recently updated).
+4. Validate macOS and iOS interaction parity for refresh and deep-link behavior.
 
 ## Phase 3
 1. Add WidgetKit extension (small/medium/large + lock screen).

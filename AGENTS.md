@@ -49,12 +49,67 @@ Notes:
 ## Expected Workflow for Agents
 1. Read current git status before changes.
 2. Implement focused edits.
-3. Run `make build-macos` at minimum.
-4. Run unit tests when possible (`make test-macos`).
-5. Summarize exactly what changed and what was validated.
+3. Validate both platforms for each feature change:
+   - `make build-macos`
+   - `make build-ios`
+4. Run unit tests when possible (`make test-macos` and `make test-ios`).
+5. Update Wiki docs when behavior, architecture, structure, or workflow changes.
+6. Keep `docs/wiki/` pages in sync with code changes before finalizing.
+7. Publish wiki updates to GitHub Wiki when access is available.
+8. Summarize exactly what changed and what was validated.
 
 ## Pending Product Scope (Not Yet Implemented)
 - Full PR dashboard UI
 - Widgets and App Group sharing
 - OAuth flow
 - Background refresh and notifications
+
+## Workflow Orchestration
+
+### 1) Plan Mode Default
+- Enter plan mode for non-trivial work (multi-step tasks or architecture-impacting changes).
+- If implementation breaks or assumptions fail, stop and re-plan before continuing.
+- Use plan mode for verification strategy, not just implementation steps.
+- Write detailed specs up front to reduce ambiguity.
+
+### 2) Subagent Strategy
+- Use subagents/parallel work to keep primary context focused.
+- Offload research, exploration, and parallel analysis when useful.
+- For complex problems, split work into focused sub-tasks.
+- Prefer one clear task per subagent execution path.
+
+### 3) Self-Improvement Loop
+- After corrections, record lessons in `tasks/lessons.md` when that file exists.
+- Add rules that prevent recurrence of the same issue.
+- Revisit and refine lessons until repeated error rate drops.
+- Review prior lessons at the start of related project work.
+
+### 4) Verification Before Done
+- Do not mark work complete without proof it works.
+- Verify behavior changed as intended for affected code paths.
+- Run relevant tests/builds, inspect logs, and provide concrete validation evidence.
+- Use a senior-engineering quality bar before finalizing.
+
+### 5) Demand Elegance (Balanced)
+- For non-trivial changes, pause and check if a cleaner design exists.
+- Avoid hacky fixes when a robust solution is practical.
+- Do not over-engineer simple, obvious fixes.
+- Challenge code quality before presenting results.
+
+### 6) Autonomous Bug Fixing
+- When given a bug report, drive from logs/errors/tests to resolution.
+- Minimize back-and-forth when the problem can be solved directly.
+- Treat failing CI/tests as actionable debugging entry points.
+
+## Task Management
+1. Plan first: write checkable tasks in `tasks/todo.md` when that file exists.
+2. Verify plan: confirm the plan before implementing.
+3. Track progress: mark items complete as work lands.
+4. Explain changes: provide a high-level summary per major step.
+5. Document results: add review notes to `tasks/todo.md` when used.
+6. Capture lessons: update `tasks/lessons.md` after corrections when applicable.
+
+## Core Principles
+- Simplicity first: prefer the smallest correct change.
+- No laziness: fix root causes, avoid temporary patches.
+- Minimal impact: touch only required surfaces and avoid regressions.

@@ -4,8 +4,9 @@
 1. App launches to `ContentView`.
 2. `ContentView` checks keychain for an existing token.
 3. If no token: show `AuthView`.
-4. If token exists: show `ConnectedView`.
-5. `ConnectedView` can test API connectivity and refresh pull request count.
+4. If token exists: show `PRListView`.
+5. `PRListView` loads PRs, supports pull-to-refresh, and auto-refreshes on configured interval.
+6. Selecting a PR opens `PRDetailView` for full check run visibility and GitHub links.
 
 ## Authentication Flow
 1. User enters PAT.
@@ -21,6 +22,13 @@
   - `TokenStore` dependency
 - `GitHubAPIClient` builds GraphQL request and fetches response.
 - Decoding maps GitHub GraphQL types into app domain models.
+
+## Settings Flow
+- `SettingsView` controls:
+  - refresh interval (5/15/30)
+  - GitHub.com vs Enterprise endpoint
+- Endpoint normalization is centralized in `GitHubEndpoint.resolve(...)`.
+- `PRListView` uses settings values at refresh time.
 
 ## CI Status Mapping
 - PR rollup states are normalized into `CIStatus`.

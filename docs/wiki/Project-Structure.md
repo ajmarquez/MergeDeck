@@ -23,6 +23,16 @@
   - `AuthView.swift`: PAT + optional enterprise endpoint input
   - `AuthViewModel.swift`: token save + validation workflow
 
+- `MergeDeck/Features/PRList/`
+  - `PRListView.swift`: main dashboard list with refresh and navigation
+  - `PRListViewModel.swift`: fetch and state management for PR list
+  - `PRRowView.swift`: list row presentation
+  - `PRDetailView.swift`: check run details + deep links
+
+- `MergeDeck/Features/Settings/`
+  - `SettingsView.swift`: refresh interval + endpoint configuration
+  - `SettingsViewModel.swift`: settings option validation
+
 - `MergeDeck/Core/Models/`
   - `PullRequest.swift`, `Repository.swift`, `CheckRun.swift`
   - `CIStatus.swift`, `CheckStatus.swift`, `CheckConclusion.swift`
