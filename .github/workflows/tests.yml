@@ -31,6 +31,10 @@ jobs:
             -configuration Debug \
             -destination 'platform=macOS' \
             -only-testing:MergeDeckTests \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
             test
 
   ios-unit-tests:
@@ -65,4 +69,8 @@ jobs:
             -configuration Debug \
             -destination "id=${{ steps.simulator.outputs.id }}" \
             -only-testing:MergeDeckTests \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
             test
