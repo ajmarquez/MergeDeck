@@ -1,0 +1,68 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/**
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos-unit-tests:
+    name: macOS Unit Tests
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run unit tests (macOS)
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project MergeDeck.xcodeproj \
+            -scheme MergeDeck \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            -only-testing:MergeDeckTests \
+            test
+
+  ios-unit-tests:
+    name: iOS Unit Tests
+    runs-on: macos-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve simulator
+        id: simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          SIM_ID="$(xcrun simctl list devices available | sed -nE 's/.*iPhone[^()]*\(([0-9A-F-]+)\).*/\1/p' | head -n 1)"
+          if [[ -z "${SIM_ID}" ]]; then
+            echo "No available iPhone simulator found."
+            xcrun simctl list devices available
+            exit 1
+          fi
+          echo "id=${SIM_ID}" >> "$GITHUB_OUTPUT"
+          echo "Using simulator id: ${SIM_ID}"
+
+      - name: Run unit tests (iOS Simulator)
+        shell: bash
+        run: |
+          set -euo pipefail
+          xcodebuild \
+            -project MergeDeck.xcodeproj \
+            -scheme MergeDeck \
+            -configuration Debug \
+            -destination "id=${{ steps.simulator.outputs.id }}" \
+            -only-testing:MergeDeckTests \
+            test

@@ -33,6 +33,10 @@ Use the root `Makefile`.
 Notes:
 - `xcbeautify` is auto-used when available, with fallback to raw `xcodebuild` output.
 - Some environments may stall during `xcodebuild test` when UI runners initialize. Prefer unit test targets first.
+- If a build/test appears stuck:
+  - run `make clean`
+  - retry the same command once
+  - if still stuck, stop the hanging `xcodebuild` process and report the blocker with logs
 
 ## Conventions and Guardrails
 - Prefer strict-concurrency-safe APIs and avoid implicit actor isolation leaks.
