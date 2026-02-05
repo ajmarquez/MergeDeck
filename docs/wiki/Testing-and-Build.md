@@ -21,6 +21,15 @@ make test-ui-macos
 make test-ui-ios
 ```
 
+## CI (GitHub Actions)
+- Workflow: `.github/workflows/tests.yml`
+- Triggers:
+  - pull requests
+  - pushes to `main`, `develop`, and `feature/**`
+- Jobs:
+  - macOS unit tests (`MergeDeckTests`)
+  - iOS simulator unit tests (`MergeDeckTests`)
+
 ## Notes About Test Execution
 - Unit and UI tests are separated in Make targets.
 - Some local environments can stall around UI test runner startup.
