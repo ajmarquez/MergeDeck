@@ -9,11 +9,16 @@
 6. Selecting a PR opens `PRDetailView` for full check run visibility and GitHub links.
 
 ## Authentication Flow
-1. User enters PAT.
-2. Optional: user enables enterprise mode and sets GraphQL endpoint.
-3. `AuthViewModel` saves token to keychain.
-4. Token is validated by executing `fetchMyPullRequests()`.
-5. On failure, token is deleted and error is surfaced.
+1. User chooses auth mode: OAuth Device Flow or PAT.
+2. Optional: user enables enterprise mode and sets enterprise base URL.
+3. OAuth path:
+   - `AuthViewModel` starts device authorization through `GitHubOAuthClient`.
+   - App shows verification URL + user code.
+   - After user authorizes, app polls for access token.
+4. PAT path:
+   - `AuthViewModel` saves provided PAT directly.
+5. In both paths, token is validated with `fetchViewerLogin()` / `fetchMyPullRequests()`.
+6. On failure, token is deleted and error is surfaced.
 
 ## Data Flow
 - View layer triggers async action in view model.

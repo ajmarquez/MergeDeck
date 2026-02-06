@@ -47,16 +47,18 @@ Why:
 Tradeoff:
 - One extra extension file to discover UI styling behavior.
 
-## 5) PAT First, OAuth Later
+## 5) OAuth Device Flow + PAT Fallback
 Decision:
-- Implement PAT auth in Phase 1.
+- Add OAuth Device Flow as primary auth path, keep PAT as fallback.
 
 Why:
-- Lowest complexity path to validate end-to-end product value.
-- Avoids early OAuth complexity before data model and widget strategy stabilize.
+- Supports organizations where PAT usage is restricted.
+- Works on GitHub.com without browser callback handling complexity in-app.
+- Preserves compatibility for environments that still rely on PAT.
 
 Tradeoff:
-- Manual token creation/paste UX is less polished.
+- Requires GitHub OAuth App Client ID configuration.
+- Device-flow UX adds one extra verification step for users.
 
 ## 6) GitHub GraphQL API
 Decision:

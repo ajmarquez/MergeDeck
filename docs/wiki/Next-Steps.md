@@ -1,10 +1,11 @@
 # Next Steps
 
 ## Phase 2 (Recommended Immediate Work)
-1. Complete UX polish for PR list, detail, and settings flows.
+1. Complete UX polish for auth, PR list, detail, and settings flows.
 2. Improve failure/empty states with retry actions and clearer diagnostics.
 3. Add filtering/sorting controls (for example, failing first or recently updated).
 4. Validate macOS and iOS interaction parity for refresh and deep-link behavior.
+5. Add clear setup docs for GitHub OAuth App client configuration.
 
 ## Phase 3
 1. Add WidgetKit extension (small/medium/large + lock screen).

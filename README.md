@@ -2,19 +2,18 @@
 
 MergeDeck is a native iOS and macOS app that keeps you informed about GitHub Pull Requests and CI status at a glance, designed for widgets and quick checks.
 
-## Current Status (Phase 1: Foundation)
-Phase 1 is complete locally and on `develop`/`main`. The app currently includes:
+## Current Status
+Current build includes:
 - Universal SwiftUI app shell (iOS + macOS)
-- PAT-based authentication (Keychain-backed)
+- OAuth Device Flow authentication (GitHub.com by default)
+- PAT authentication fallback (Keychain-backed)
 - GitHub GraphQL API client with async/await
 - Core data models and status parsing
-- Minimal “Connected” screen to validate API access
+- PR list, detail, and settings screens
 - Basic tests for decoding, auth headers, and keychain round-trip
 
 ### Out of Scope (Not Yet Implemented)
-- PR dashboard UI and detail views
 - Widgets / App Groups
-- OAuth login
 - Background refresh, caching, notifications
 
 ## Requirements
@@ -25,11 +24,17 @@ Phase 1 is complete locally and on `develop`/`main`. The app currently includes:
 ## Getting Started
 1. Open `MergeDeck.xcodeproj` in Xcode.
 2. Run the app on iOS simulator or macOS.
-3. Paste a GitHub PAT when prompted.
-4. Optional: toggle “Use GitHub Enterprise” and supply your GraphQL endpoint.
+3. In auth screen, choose:
+   - `OAuth`: provide OAuth App Client ID and complete device verification.
+   - `Personal Access Token`: paste PAT.
+4. Optional: toggle “Use GitHub Enterprise” and supply your enterprise base URL.
 
 ## Authentication
-MergeDeck uses a GitHub Personal Access Token stored in the Keychain.
+MergeDeck supports:
+- OAuth Device Flow (recommended for GitHub.com and enterprises that block PAT usage).
+- Personal Access Token (fallback).
+
+Access token is stored in Keychain.
 
 Recommended scopes for private repo access:
 - `repo`

@@ -7,8 +7,9 @@ This wiki is designed for two goals:
 - Evaluate architecture and technical decisions with clear tradeoffs.
 
 ## Current Status
-Phase 1 (foundation) is implemented:
-- PAT-based authentication
+Phase 1 + current phase are implemented:
+- OAuth Device Flow authentication (GitHub.com default)
+- PAT authentication fallback
 - Keychain-backed token storage
 - GraphQL API client with async/await
 - Core CI/PR domain models
@@ -17,7 +18,6 @@ Phase 1 (foundation) is implemented:
 
 Not implemented yet:
 - Widgets
-- OAuth flow
 - Background refresh/notifications
 
 ## Read This First
