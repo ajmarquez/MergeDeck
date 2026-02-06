@@ -44,6 +44,7 @@ Notes:
 ## Authentication and API
 - Token storage is provided by `KeychainManager` implementing `TokenStore`.
 - `GitHubAPIClient` is an `actor` and requires an injected `TokenStore`.
+- OAuth Device Flow is implemented via `GitHubOAuthClient` and used by `AuthViewModel`.
 - GraphQL queries are defined in `MergeDeck/Core/Network/GraphQLQueries.swift`.
 
 ## Expected Workflow for Agents
@@ -59,9 +60,7 @@ Notes:
 8. Summarize exactly what changed and what was validated.
 
 ## Pending Product Scope (Not Yet Implemented)
-- Full PR dashboard UI
 - Widgets and App Group sharing
-- OAuth flow
 - Background refresh and notifications
 
 ## Workflow Orchestration

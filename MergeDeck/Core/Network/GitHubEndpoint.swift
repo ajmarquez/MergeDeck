@@ -6,6 +6,8 @@
 import Foundation
 
 enum GitHubEndpoint {
+    static let defaultOAuthBaseURL = URL(string: "https://github.com")!
+
     static func resolve(useEnterprise: Bool, configuredBaseURL: String) -> URL? {
         if !useEnterprise {
             return GitHubAPIClient.defaultBaseURL
@@ -16,11 +18,35 @@ enum GitHubEndpoint {
             return nil
         }
 
-        if trimmed.lowercased().hasSuffix("/graphql") {
-            return URL(string: trimmed)
+        guard var components = URLComponents(string: trimmed), components.scheme != nil else {
+            return nil
         }
 
-        let base = trimmed.hasSuffix("/") ? String(trimmed.dropLast()) : trimmed
-        return URL(string: "\(base)/graphql")
+        let path = components.path.lowercased()
+        if path.hasSuffix("/graphql") || path.hasSuffix("/api/graphql") {
+            return components.url
+        }
+
+        components.path = "/api/graphql"
+        components.query = nil
+        components.fragment = nil
+        return components.url
+    }
+
+    static func resolveOAuthBase(useEnterprise: Bool, configuredBaseURL: String) -> URL? {
+        if !useEnterprise {
+            return defaultOAuthBaseURL
+        }
+
+        guard let graphqlURL = resolve(useEnterprise: true, configuredBaseURL: configuredBaseURL),
+              var components = URLComponents(url: graphqlURL, resolvingAgainstBaseURL: false)
+        else {
+            return nil
+        }
+
+        components.path = ""
+        components.query = nil
+        components.fragment = nil
+        return components.url
     }
 }

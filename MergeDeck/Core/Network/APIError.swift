@@ -14,6 +14,7 @@ enum APIError: Error, LocalizedError {
     case decodingFailed
     case invalidURL
     case graphQLError(String)
+    case oauthError(String)
 
     var errorDescription: String? {
         switch self {
@@ -32,6 +33,8 @@ enum APIError: Error, LocalizedError {
         case .invalidURL:
             return "Invalid URL provided."
         case .graphQLError(let message):
+            return message
+        case .oauthError(let message):
             return message
         }
     }
