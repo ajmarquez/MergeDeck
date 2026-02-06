@@ -52,13 +52,23 @@ Notes:
 
 ## Expected Workflow for Agents
 1. Read current git status before changes.
-2. Implement focused edits.
-3. Run `make build-macos` at minimum.
-4. Run unit tests when possible (`make test-macos`).
-5. Summarize exactly what changed and what was validated.
+2. Read `docs/Next-Session.md` at session start and follow its checklist.
+3. Implement focused edits.
+4. Validate both platforms:
+   - `make build-macos`
+   - `make build-ios`
+5. Run unit tests when possible (`make test-macos` and `make test-ios`).
+6. Summarize exactly what changed and what was validated.
+7. Update `docs/Next-Session.md` before ending the session.
 
 ## Pending Product Scope (Not Yet Implemented)
 - Full PR dashboard UI
 - Widgets and App Group sharing
 - OAuth flow
 - Background refresh and notifications
+
+## Session Handoff
+- Canonical handoff file: `docs/Next-Session.md`
+- Every session should:
+  - read it at start
+  - update it at end
