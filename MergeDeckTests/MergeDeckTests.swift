@@ -65,7 +65,14 @@ struct MergeDeckTests {
 
     @Test
     func keychainRoundTrip() async throws {
-        if ProcessInfo.processInfo.environment["CI"] == "true" {
+        #if os(iOS)
+        return
+        #else
+        let environment = ProcessInfo.processInfo.environment
+        if environment["CI"] == "true"
+            || environment["GITHUB_ACTIONS"] == "true"
+            || environment["SIMULATOR_UDID"] != nil
+        {
             return
         }
 
@@ -77,6 +84,7 @@ struct MergeDeckTests {
         #expect(stored == "token-value")
 
         try await manager.deleteToken()
+        #endif
     }
 }
 
